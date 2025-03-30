@@ -4,6 +4,7 @@ export const questionsData: Question[] = [
   {
     id: 1,
     type: 'radio',
+    hasCorrectAnswers: false,
     questionText: "Какой ваш любимый цвет?",
     answersList: [
       { type: "radio", answer: "Красный", isRight: false },
@@ -14,6 +15,7 @@ export const questionsData: Question[] = [
   {
     id: 2,
     type: 'checkbox',
+    hasCorrectAnswers: false,
     questionText: "Какой ваш любимый фрукт?",
     answersList: [
       { type: "checkbox", answer: "Яблоко", isRight: true },
@@ -24,7 +26,8 @@ export const questionsData: Question[] = [
   {
     id: 3,
     type: 'input',
+    hasCorrectAnswers: false,
     questionText: "Какая столица Франции?",
-    answersList: [{ type: "input", answer: "Париж" }]
+    answersList: [{ type: "input", answer: "Париж", isRight: false }]
   }
 ];

@@ -7,15 +7,22 @@ interface QuestionCreatorProps {
 
 const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
 
+  const [questionText, setQuestionText] = useState('')
   const [answerType, setAnswerType] = useState<AnswerType>('input') /* отображение контента для создания ответов при выборе варианта в выпадающем списке*/
   const [answers, setAnswers] = useState<Answer[]>([]) /*Это список созданных ответов */
-  const [hasCorrectAnswers, setHasCorrentAnswers] = useState(true)
+  const [hasCorrectAnswers, setHasCorrentAnswers] = useState(true)/* Для выбора есть правильные ответы или нет */
   
   const handleAddAnswer = () => {
     const newAnswer: Answer =
  {type: answerType, answer: '', isRight: false}
 
     setAnswers([...answers, newAnswer])
+  }
+
+  const handleAnswerChange = (index: number, value: string) => {
+    const updatedAnswers =[...answers]
+    updatedAnswers[index].answer = value
+    setAnswers(updatedAnswers)
   }
 
   const handleIsRightChange = (index: number) => {
@@ -28,11 +35,33 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
     }
   }
 
+  const handleCreateQuestion = () => {
+    if (!questionText) return
+
+    const newQuestion: Question = {
+      id: Date.now(),
+      type: answerType,
+      questionText, 
+      hasCorrectAnswers,
+      answersList: answers.map((a) => ({
+        type: a.type,
+        answer: a.answer,
+        isRight: a.isRight,
+      }))
+    }
+    console.log(newQuestion)
+    onAddQuestion(newQuestion);
+    setQuestionText('');
+    setAnswers([])
+  }
+
   return (
     <div>
       <input
         type="text"
-        placeholder="Введите свой вопрос..."
+        placeholder="Введите свой вопрос"
+        value={questionText}
+        onChange={(e)=> setQuestionText(e.target.value)}
       >
       </input>
       <select value={answerType} onChange={(e) => setAnswerType(e.target.value as AnswerType)}>
@@ -59,6 +88,7 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
                 type="text"
                 placeholder="Вариант ответа"
                 value={answer.answer}
+                onChange={(e) => handleAnswerChange(index, e.target.value)}
               ></input>
               {hasCorrectAnswers && (
                 <input
@@ -75,13 +105,14 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
           <button onClick={handleAddAnswer}> Добавить вариант ответа</button>
         </div>
       )}
-      {answerType === 'input' && (
+      {answerType === 'input' && hasCorrectAnswers && (
         <div>
           <input
             type="text"
             placeholder="Введите ответ на вопрос"></input>
         </div>
       )}
+      <button onClick={handleCreateQuestion}>Создать вопрос</button>
     </div>
   )
 }
