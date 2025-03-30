@@ -11,6 +11,7 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
   const [answerType, setAnswerType] = useState<AnswerType>('input') /* отображение контента для создания ответов при выборе варианта в выпадающем списке*/
   const [answers, setAnswers] = useState<Answer[]>([]) /*Это список созданных ответов */
   const [hasCorrectAnswers, setHasCorrentAnswers] = useState(true)/* Для выбора есть правильные ответы или нет */
+  const [textAnswer, setTextAnswer] = useState('')
   
   const handleAddAnswer = () => {
     const newAnswer: Answer =
@@ -36,14 +37,14 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
   }
 
   const handleCreateQuestion = () => {
-    if (!questionText) return
+
 
     const newQuestion: Question = {
       id: Date.now(),
       type: answerType,
       questionText, 
       hasCorrectAnswers,
-      answersList: answers.map((a) => ({
+      answersList: answerType === 'input' ? [{type: 'input', answer: textAnswer, isRight: false}] : answers.map((a) => ({
         type: a.type,
         answer: a.answer,
         isRight: a.isRight,
@@ -51,9 +52,15 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
     }
     console.log(newQuestion)
     onAddQuestion(newQuestion);
+
     setQuestionText('');
     setAnswers([])
+    setTextAnswer('')
   }
+
+  const isSubmitDisabled = !questionText || 
+  (answerType !=='input' && (answers.length === 0 || hasCorrectAnswers && !answers.some((a) => a.isRight))) ||
+  (answerType === 'input' && !textAnswer)
 
   return (
     <div>
@@ -109,10 +116,13 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
         <div>
           <input
             type="text"
-            placeholder="Введите ответ на вопрос"></input>
+            placeholder="Введите ответ на вопрос"
+            value={textAnswer}
+            onChange={(e) => setTextAnswer(e.target.value)}
+            ></input>
         </div>
       )}
-      <button onClick={handleCreateQuestion}>Создать вопрос</button>
+      <button onClick={handleCreateQuestion} disabled={isSubmitDisabled}>Создать вопрос</button>
     </div>
   )
 }
