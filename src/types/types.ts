@@ -1,3 +1,5 @@
+export type AnswerType = 'input' | 'radio' | 'checkbox'
+
 export type Tinput = {
   type: 'input'
   answer: string;
@@ -15,9 +17,11 @@ export type Tradio = {
   isRight: boolean;
 };
 
+export type Answer = Tinput | Tradio | Tcheckbox 
+
 export type Question = {
   id: number;
   questionText: string;
-  type: 'input' | 'radio' | 'checkbox'
-  answersList: Tinput[] | Tradio[] | Tcheckbox[];
+  type: AnswerType
+  answersList: Answer[];
 };
