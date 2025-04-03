@@ -1,18 +1,20 @@
-import { useState } from 'react'
-import { Question } from '../types/types'
 import QuestionCreator from './QuestionCreator'
+import QuestionsList from './QuestionsList'
+import { Question } from '../types/types'
 
-const QuestionEditor: React.FC = () => {
+interface QuestionEditorProps {
+  questions: Question[];
+  onAddQuestion: (newQuestion: Omit<Question, 'id'>) => void;
+}
 
-    const handleAddQuestion = (newQuestion: Question) => {
-      const [questions, setQuestions] = useState<Question[]>([])
-      setQuestions([...questions, {...newQuestion, id: questions.length+1}])
-    }
+const QuestionEditor: React.FC <QuestionEditorProps>= ({questions, onAddQuestion}) => {
 
     return (
       <div>
         <h1>Создай свой тест</h1>
-        <QuestionCreator onAddQuestion={handleAddQuestion}></QuestionCreator>
+        <QuestionCreator onAddQuestion={onAddQuestion}></QuestionCreator>
+        <h2>Текущий тест:</h2>
+        <QuestionsList questions={questions}></QuestionsList>
       </div>
     )
 }

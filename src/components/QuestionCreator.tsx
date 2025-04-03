@@ -10,7 +10,7 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
   const [questionText, setQuestionText] = useState('')
   const [answerType, setAnswerType] = useState<AnswerType>('input') /* отображение контента для создания ответов при выборе варианта в выпадающем списке*/
   const [answers, setAnswers] = useState<Answer[]>([]) /*Это список созданных ответов */
-  const [hasCorrectAnswers, setHasCorrentAnswers] = useState(true)/* Для выбора есть правильные ответы или нет */
+  const [hasCorrectAnswers, setHasCorrentAnswers] = useState(false)/* Для выбора есть правильные ответы или нет */
   const [textAnswer, setTextAnswer] = useState('')
   
   const handleAddAnswer = () => {
@@ -37,7 +37,6 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
   }
 
   const handleCreateQuestion = () => {
-
 
     const newQuestion: Question = {
       id: Date.now(),
