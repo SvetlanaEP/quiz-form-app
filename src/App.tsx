@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './App.css'
 
 
@@ -8,16 +9,22 @@ import { questionsData } from './QuestionData'
 
 
 const App: React.FC = () => {
-
-
+const [isEditing, setIsEditing] = useState(true)
 
 
 
   return (
     <div>
-      <h1>Создай свой тест</h1>
-      <QuestionEditor></QuestionEditor>
-      <QuestionDisplay questions={questionsData}></QuestionDisplay>
+      <button onClick={()=> {setIsEditing(!isEditing)}}>
+        {isEditing ? 'Перейти к тесту' : 'Редактировать тест'}
+      </button>
+      
+      { isEditing ? (
+        <QuestionEditor></QuestionEditor> ) : (
+          <QuestionDisplay questions={questionsData}></QuestionDisplay>
+        )
+      }
+
     </div>
   )
 }
