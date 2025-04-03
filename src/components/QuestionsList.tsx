@@ -2,9 +2,10 @@ import { Question } from "../types/types"
 
 interface QuestinFormProps {
   questions: Question[];
+  onDeleteQuestion: (id: number) => void
 }
 
-const QuestionsList: React.FC <QuestinFormProps> = ({questions}) => {
+const QuestionsList: React.FC <QuestinFormProps> = ({questions, onDeleteQuestion}) => {
   return (
     <div>
       {questions.length === 0 ? (
@@ -42,7 +43,7 @@ const QuestionsList: React.FC <QuestinFormProps> = ({questions}) => {
                   </>
                  )
               }
-           
+              <button onClick={() => {onDeleteQuestion(question.id)}}>Удалить вопрос</button>
             </div>
           </div>
           )

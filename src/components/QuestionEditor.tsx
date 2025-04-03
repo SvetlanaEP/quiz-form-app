@@ -4,17 +4,18 @@ import { Question } from '../types/types'
 
 interface QuestionEditorProps {
   questions: Question[];
-  onAddQuestion: (newQuestion: Omit<Question, 'id'>) => void;
+  onAddQuestion: (newQuestion: Question) => void;
+  onDeleteQuestion: (id: number) => void
 }
 
-const QuestionEditor: React.FC <QuestionEditorProps>= ({questions, onAddQuestion}) => {
+const QuestionEditor: React.FC <QuestionEditorProps>= ({questions, onAddQuestion, onDeleteQuestion}) => {
 
     return (
       <div>
         <h1>Создай свой тест</h1>
         <QuestionCreator onAddQuestion={onAddQuestion}></QuestionCreator>
         <h2>Текущий тест:</h2>
-        <QuestionsList questions={questions}></QuestionsList>
+        <QuestionsList questions={questions} onDeleteQuestion={onDeleteQuestion}></QuestionsList>
       </div>
     )
 }

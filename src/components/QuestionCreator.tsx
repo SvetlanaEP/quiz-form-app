@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Answer, AnswerType, Question, Tradio } from "../types/types"
+import { questionsData } from "../QuestionData"
 
 interface QuestionCreatorProps {
   onAddQuestion: (newQuestion: Question) => void
@@ -39,7 +40,7 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
   const handleCreateQuestion = () => {
 
     const newQuestion: Question = {
-      id: Date.now(),
+      id: questionsData.length,
       type: answerType,
       questionText, 
       hasCorrectAnswers,

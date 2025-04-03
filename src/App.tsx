@@ -12,12 +12,13 @@ const App: React.FC = () => {
 const [isEditing, setIsEditing] = useState(true)
 const [questions, setQuestions] = useState<Question[]>(questionsData)
 
-const handleAddQuestion = (newQuestion: Omit<Question, 'id'>) => {
-  setQuestions((prevQuestions) => [
-    ...prevQuestions,
-    { ...newQuestion, id: prevQuestions.length + 1 },
-  ]);
-};
+const handleAddQuestion = (newQuestion: Question) => {
+  setQuestions([...questions, {...newQuestion, id: questions.length+1}])
+}
+
+const handleDeleteQuestion = (id: number) => {
+  setQuestions(questions.filter(question => question.id !== id))
+}
 
   return (
     <div>
@@ -26,7 +27,11 @@ const handleAddQuestion = (newQuestion: Omit<Question, 'id'>) => {
       </button>
       
       { isEditing ? (
-        <QuestionEditor questions={questions} onAddQuestion={handleAddQuestion}></QuestionEditor> ) : (
+        <QuestionEditor 
+          questions={questions} 
+          onAddQuestion={handleAddQuestion} 
+          onDeleteQuestion={handleDeleteQuestion}>
+        </QuestionEditor> ) : (
           <QuestionDisplay questions={questions}></QuestionDisplay>
         )
       }
