@@ -17,7 +17,7 @@ const QuestionsList: React.FC <QuestinFormProps> = ({questions, onDeleteQuestion
           return (
             <QuestionCard key={question.id}>
             <h3>{question.questionText}</h3>
-            <div>
+            <ListWrapper>
 
               {question.type==='input' ? (
                 <Input type="input" placeholder='Введите ответ'/>
@@ -46,7 +46,7 @@ const QuestionsList: React.FC <QuestinFormProps> = ({questions, onDeleteQuestion
                  )
               }
               <DeleteButton onClick={() => {onDeleteQuestion(question.id)}}>Удалить вопрос</DeleteButton>
-            </div>
+            </ListWrapper>
           </QuestionCard>
           )
         })

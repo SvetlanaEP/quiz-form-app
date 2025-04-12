@@ -8,7 +8,7 @@ import { questionsData } from './QuestionData'
 
 
 const App: React.FC = () => {
-const [isEditing, setIsEditing] = useState(true)
+const [isEditing, setIsEditing] = useState(false)
 const [questions, setQuestions] = useState<Question[]>(questionsData)
 
 const handleAddQuestion = (newQuestion: Question) => {

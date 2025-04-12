@@ -1,6 +1,8 @@
 
 import React from "react";
 import { Question} from "../types/types"
+import { DisplayWrapper, QuestionCard, DisplayTitle, AnswerItem, 
+  QuestionText, Input, AnswerBlock, ListWrapper } from "./QuestionDisplay.styles";
 
 interface QuestinFormProps {
   questions: Question[];
@@ -8,47 +10,48 @@ interface QuestinFormProps {
 
 const QuestionDisplay: React.FC<QuestinFormProps> = ({questions}) => {
   return (
-    <div>
-      <h2>Пожалуйста, ответье на вопросы</h2>
+    <DisplayWrapper>
+      <DisplayTitle>Пожалуйста, ответье на вопросы</DisplayTitle>
+      <ListWrapper>
       {questions.map((question) => {
         return (
-          <div key={question.id}>
-            <h3>{question.questionText}</h3>
+          <QuestionCard key={question.id}>
+            <QuestionText>{question.questionText}</QuestionText>
             <div>
 
               {question.type==='input' ? (
-                <input type="input" placeholder='Введите ответ'/>
+                <Input type="input" placeholder='Введите ответ'/>
                 ) : 
                   question.type === 'radio' ? (
-                    <>
+                    <AnswerBlock>
                       { question.answersList.map((answer, index) => (
-                        <label>
+                        <AnswerItem>
                           <input key={index} type="radio" name={`${question.id}`} />
                         {answer.answer}
-                        </label>
+                        </AnswerItem>
                       ))
                       }
-                    </>
+                    </AnswerBlock>
                       
                     ) 
                 : ( 
-                  <>
+                  <AnswerBlock>
                     { question.answersList.map((answer, index) => (
-                      <label>
+                      <AnswerItem>
                         <input key={index} type="checkbox" name={`${question.id}`}/>
                         {answer.answer}
-                      </label>
+                      </AnswerItem>
                     ))}
-                  </>
+                  </AnswerBlock>
                  )
               }
            
             </div>
-          </div>
+          </QuestionCard>
         )
       })}
-
-    </div>
+      </ListWrapper>
+    </DisplayWrapper>
   )
 }
 
