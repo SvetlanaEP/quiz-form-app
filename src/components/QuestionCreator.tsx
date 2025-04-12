@@ -1,76 +1,7 @@
 import { useState } from "react"
 import { Answer, AnswerType, Question, Tradio } from "../types/types"
 import { questionsData } from "../QuestionData"
-import styled from "styled-components"
-
-const Wrapper = styled.div`
-  padding: 20px;
-  background: #fefefe;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  max-width: 600px;
-  margin: 0 auto;
-`;
-
-const Label = styled.label`
-  font-weight: bold;
-  display: block;
-  margin: 16px 0 8px;
-`;
-
-const Input = styled.input`
-  padding: 8px;
-  width: 100%;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-`;
-
-const InputRadio = styled.input`
-  padding: 8px;
-  width: auto;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-`;
-
-const Select = styled.select`
-  padding: 8px;
-  width: 100%;
-`;
-
-const AnswerBlock = styled.div`
-  margin: 10px 0;
-`;
-
-const AnswerRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-`;
-
-const AddButton = styled.button`
-  padding: 6px 10px;
-  background-color: darkcyan;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-`;
-
-const SubmitButton = styled.button`
-  margin-top: 20px;
-  padding: 10px;
-  background-color: darkcyan;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-`;
+import { Wrapper, Label, Input, InputRadio, Select, AnswerBlock, AnswerRow, AddButton, SubmitButton } from "./QuestionCreator.styled";
 
 interface QuestionCreatorProps {
   onAddQuestion: (newQuestion: Question) => void

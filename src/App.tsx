@@ -1,34 +1,10 @@
 import { useState } from 'react'
-import styled from 'styled-components'
+import { AppContainer, Button } from './App.styles'
 
 import QuestionDisplay from './components/QuestionDisplay'
 import QuestionEditor from './components/QuestionEditor'
 import { Question } from './types/types'
 import { questionsData } from './QuestionData'
-
-const AppContainer = styled.div`
-  font-family: 'Arial', sans-serif;
-  background-color: azure;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Button = styled.button`
-  padding: 10px;
-  background-color: darkcyan;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  width: auto;
-  margin: 20px auto;
-
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-`;
 
 
 const App: React.FC = () => {
