@@ -1,4 +1,6 @@
 import { Question } from "../types/types"
+import { ListWrapper, QuestionCard, AnswersList, AnswerItem, DeleteButton, Input } from "./QuestionsList.styles";
+
 
 interface QuestinFormProps {
   questions: Question[];
@@ -7,49 +9,49 @@ interface QuestinFormProps {
 
 const QuestionsList: React.FC <QuestinFormProps> = ({questions, onDeleteQuestion}) => {
   return (
-    <div>
+    <ListWrapper>
       {questions.length === 0 ? (
         <p> Вопросов нет</p>
       ) : (
         questions.map((question) => {
           return (
-            <div key={question.id}>
+            <QuestionCard key={question.id}>
             <h3>{question.questionText}</h3>
             <div>
 
               {question.type==='input' ? (
-                <input type="input" placeholder='Введите ответ'/>
+                <Input type="input" placeholder='Введите ответ'/>
                 ) : 
                   question.type === 'radio' ? (
-                    <>
+                    <AnswersList>
                       { question.answersList.map((answer, index) => (
-                        <label key={index}>
+                        <AnswerItem key={index}>
                           <input  type="radio" name={`${question.id}`} />
                         {answer.answer}
-                        </label>
+                        </AnswerItem>
                       ))
                       }
-                    </>
+                    </AnswersList>
                       
                     ) 
                 : ( 
-                  <>
+                  <AnswersList>
                     { question.answersList.map((answer, index) => (
-                      <label key={index}>
+                      <AnswerItem key={index}>
                         <input  type="checkbox" name={`${question.id}`}/>
                         {answer.answer}
-                      </label>
+                      </AnswerItem>
                     ))}
-                  </>
+                  </AnswersList>
                  )
               }
-              <button onClick={() => {onDeleteQuestion(question.id)}}>Удалить вопрос</button>
+              <DeleteButton onClick={() => {onDeleteQuestion(question.id)}}>Удалить вопрос</DeleteButton>
             </div>
-          </div>
+          </QuestionCard>
           )
         })
       )}
-    </div>
+    </ListWrapper>
   )
 }
 

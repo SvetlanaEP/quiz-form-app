@@ -1,6 +1,76 @@
 import { useState } from "react"
 import { Answer, AnswerType, Question, Tradio } from "../types/types"
 import { questionsData } from "../QuestionData"
+import styled from "styled-components"
+
+const Wrapper = styled.div`
+  padding: 20px;
+  background: #fefefe;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+`;
+
+const Label = styled.label`
+  font-weight: bold;
+  display: block;
+  margin: 16px 0 8px;
+`;
+
+const Input = styled.input`
+  padding: 8px;
+  width: 100%;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+`;
+
+const InputRadio = styled.input`
+  padding: 8px;
+  width: auto;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+`;
+
+const Select = styled.select`
+  padding: 8px;
+  width: 100%;
+`;
+
+const AnswerBlock = styled.div`
+  margin: 10px 0;
+`;
+
+const AnswerRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+`;
+
+const AddButton = styled.button`
+  padding: 6px 10px;
+  background-color: darkcyan;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+`;
+
+const SubmitButton = styled.button`
+  margin-top: 20px;
+  padding: 10px;
+  background-color: darkcyan;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+`;
 
 interface QuestionCreatorProps {
   onAddQuestion: (newQuestion: Question) => void
@@ -63,20 +133,20 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
   (answerType === 'input' && (hasCorrectAnswers && !textAnswer))
 
   return (
-    <div>
-      <input
+    <Wrapper>
+      <Input
         type="text"
         placeholder="Введите свой вопрос"
         value={questionText}
         onChange={(e)=> setQuestionText(e.target.value)}
       >
-      </input>
-      <select value={answerType} onChange={(e) => setAnswerType(e.target.value as AnswerType)}>
+      </Input>
+      <Select value={answerType} onChange={(e) => setAnswerType(e.target.value as AnswerType)}>
         <option value='input'>Текстовый ответ</option>
         <option value='radio'>Один вариант ответа</option>
         <option value='checkbox'>Несколько вариантов ответа</option>
-      </select>
-      <label>
+      </Select>
+      <Label>
         <input
           type="checkbox"
           checked={hasCorrectAnswers}
@@ -84,46 +154,45 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
           >
         </input>
         Включить правильные ответы
-      </label>
+      </Label>
 
       {answerType !== 'input' && (
-        <div> 
+        <AnswerBlock> 
           {answers.map((answer, index) => {
             return (
-            <div key={index}>
-              <input
+            <AnswerRow key={index}>
+              <Input
                 type="text"
                 placeholder="Вариант ответа"
                 value={answer.answer}
                 onChange={(e) => handleAnswerChange(index, e.target.value)}
-              ></input>
+              ></Input>
               {hasCorrectAnswers && (
-                <input
+                <InputRadio
                   type={answerType}
                   checked={!!(answer as Tradio).isRight}
                   onChange={()=> handleIsRightChange(index)}
                 >
-
-                </input>
+                </InputRadio>
               )}
-            </div>
+            </AnswerRow>
           )
           })}
-          <button onClick={handleAddAnswer}> Добавить вариант ответа</button>
-        </div>
+          <AddButton onClick={handleAddAnswer}> Добавить вариант ответа</AddButton>
+        </AnswerBlock>
       )}
       {answerType === 'input' && hasCorrectAnswers && (
         <div>
-          <input
+          <Input
             type="text"
             placeholder="Введите ответ на вопрос"
             value={textAnswer}
             onChange={(e) => setTextAnswer(e.target.value)}
-            ></input>
+            ></Input>
         </div>
       )}
-      <button onClick={handleCreateQuestion} disabled={isSubmitDisabled}>Создать вопрос</button>
-    </div>
+      <SubmitButton onClick={handleCreateQuestion} disabled={isSubmitDisabled}>Создать вопрос</SubmitButton>
+    </Wrapper>
   )
 }
 

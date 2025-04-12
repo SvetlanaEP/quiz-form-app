@@ -1,11 +1,34 @@
 import { useState } from 'react'
-import './App.css'
-
+import styled from 'styled-components'
 
 import QuestionDisplay from './components/QuestionDisplay'
 import QuestionEditor from './components/QuestionEditor'
 import { Question } from './types/types'
 import { questionsData } from './QuestionData'
+
+const AppContainer = styled.div`
+  font-family: 'Arial', sans-serif;
+  background-color: azure;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Button = styled.button`
+  padding: 10px;
+  background-color: darkcyan;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: auto;
+  margin: 20px auto;
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+`;
 
 
 const App: React.FC = () => {
@@ -22,11 +45,7 @@ const handleDeleteQuestion = (id: number) => {
 }
 
   return (
-    <div>
-      <button onClick={()=> {setIsEditing(!isEditing)}}>
-        {isEditing ? 'Перейти к тесту' : 'Редактировать тест'}
-      </button>
-      
+    <AppContainer>
       { isEditing ? (
         <QuestionEditor 
           questions={questions} 
@@ -36,8 +55,10 @@ const handleDeleteQuestion = (id: number) => {
           <QuestionDisplay questions={questions}></QuestionDisplay>
         )
       }
-
-    </div>
+      <Button onClick={()=> {setIsEditing(!isEditing)}}>
+        {isEditing ? 'Перейти к тесту' : 'Редактировать тест'}
+      </Button>
+    </AppContainer>
   )
 }
 
