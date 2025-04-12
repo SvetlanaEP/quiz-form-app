@@ -60,7 +60,7 @@ const QuestionCreator: React.FC <QuestionCreatorProps> = ({onAddQuestion}) => {
 
   const isSubmitDisabled = !questionText || 
   (answerType !=='input' && (answers.length === 0 || hasCorrectAnswers && !answers.some((a) => a.isRight))) ||
-  (answerType === 'input' && !textAnswer && (hasCorrectAnswers || !hasCorrectAnswers))
+  (answerType === 'input' && (hasCorrectAnswers && !textAnswer))
 
   return (
     <div>

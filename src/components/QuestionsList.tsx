@@ -23,8 +23,8 @@ const QuestionsList: React.FC <QuestinFormProps> = ({questions, onDeleteQuestion
                   question.type === 'radio' ? (
                     <>
                       { question.answersList.map((answer, index) => (
-                        <label>
-                          <input key={index} type="radio" name={`${question.id}`} />
+                        <label key={index}>
+                          <input  type="radio" name={`${question.id}`} />
                         {answer.answer}
                         </label>
                       ))
@@ -35,8 +35,8 @@ const QuestionsList: React.FC <QuestinFormProps> = ({questions, onDeleteQuestion
                 : ( 
                   <>
                     { question.answersList.map((answer, index) => (
-                      <label>
-                        <input key={index} type="checkbox" name={`${question.id}`}/>
+                      <label key={index}>
+                        <input  type="checkbox" name={`${question.id}`}/>
                         {answer.answer}
                       </label>
                     ))}

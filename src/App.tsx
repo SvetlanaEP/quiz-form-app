@@ -13,7 +13,8 @@ const [isEditing, setIsEditing] = useState(true)
 const [questions, setQuestions] = useState<Question[]>(questionsData)
 
 const handleAddQuestion = (newQuestion: Question) => {
-  setQuestions([...questions, {...newQuestion, id: questions.length+1}])
+  const maxId = questions.reduce((max, q) => Math.max(max, q.id), 0)
+  setQuestions([...questions, {...newQuestion, id: maxId+1}])
 }
 
 const handleDeleteQuestion = (id: number) => {
